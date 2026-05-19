@@ -11,6 +11,7 @@ dependencies = [] # 共通で必須の最小限のパッケージがあればこ
 dev = [
     "pytest>=9.0.0",
     "taskipy>=1.12.0",
+    "ruff",
 ]
 # Web開発用途
 web = [
