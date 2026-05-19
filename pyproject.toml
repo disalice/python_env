@@ -41,3 +41,7 @@ test = "uv run pytest"
 # 用途に合わせた環境同期コマンド
 sync-web = "uv sync --group web"
 sync-data = "uv sync --group data"
+
+# --- pytest設定 ---
+[tool.pytest.ini_options]
+pythonpath = ["src"]
