@@ -1,0 +1,24 @@
+name: Sync Template
+
+on:
+  schedule:
+    - cron: '0 0 1 * *' # 毎月1日に実行する
+  workflow_dispatch: # 手動実行ボタンも有効化
+
+jobs:
+  repo-sync:
+    # ボイラープレート自身のリポジトリではこのジョブをスキップする
+    if: github.repository != 'disalice/python_env'
+    
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Actions Template Sync
+        uses: AndreasAugustin/actions-template-sync@v2
+        with:
+          source_repo_path: "disalice/python_env"
+          upstream_branch: "main"
