@@ -1,0 +1,43 @@
+[project]
+name = "universal-python-boilerplate"
+version = "0.1.0"
+description = "OS-independent Python boilerplate using uv"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [] # 共通で必須の最小限のパッケージがあればここへ
+
+# 開発共通の依存関係（uv run時に自動で入る）
+[dependency-groups]
+dev = [
+    "pytest>=9.0.0",
+    "taskipy>=1.12.0",
+]
+# Web開発用途
+web = [
+    "fastapi>=0.110.0",
+    "uvicorn>=0.28.0",
+]
+# データ分析・機械学習用途
+data = [
+    "pandas>=2.2.0",
+    "jupyter>=1.0.0",
+]
+
+# --- Linter & Formatter (Ruff) の設定 ---
+[tool.ruff]
+target-version = "py312"
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "N"] # 汎用的なおすすめルール
+fixable = ["ALL"]
+
+# --- タスクランナー (taskipy) の設定 ---
+[tool.taskipy.tasks]
+# uv run task <タスク名> で実行可能
+lint = "uv run ruff check . --fix"
+format = "uv run ruff format ."
+test = "uv run pytest"
+# 用途に合わせた環境同期コマンド
+sync-web = "uv sync --group web"
+sync-data = "uv sync --group data"

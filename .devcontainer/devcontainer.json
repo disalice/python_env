@@ -1,0 +1,22 @@
+{
+  "name": "Python uv Development Container",
+  "build": {
+    "dockerfile": "Dockerfile"
+  },
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "python.defaultInterpreterPath": "/workspace/.venv/bin/python",
+        "python.testing.pytestEnabled": true
+      },
+      "extensions": [
+        "ms-python.python",       // Python公式サポート
+        "charliermarsh.ruff",      // Ruff公式プラグイン
+        "ms-python.vscode-pylance" // 型補完
+      ]
+    }
+  },
+  // コンテナが立ち上がったら自動で uv venv の作成と基本パッケージの同期を行う
+  "postCreateCommand": "uv sync",
+  "remoteUser": "vscode"
+}
