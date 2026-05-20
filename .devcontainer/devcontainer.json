@@ -6,17 +6,23 @@
   "customizations": {
     "vscode": {
       "settings": {
-        "python.defaultInterpreterPath": "/workspace/.venv/bin/python",
+        // 固定パスではなく変数を使用
+        "python.defaultInterpreterPath": "${containerWorkspaceFolder}/.venv/bin/python",
+        "python.analysis.extraPaths": ["${containerWorkspaceFolder}/src"],
         "python.testing.pytestEnabled": true
       },
       "extensions": [
-        "ms-python.python",       // Python公式サポート
-        "charliermarsh.ruff",      // Ruff公式プラグイン
-        "ms-python.vscode-pylance" // 型補完
+        "ms-python.python",
+        "charliermarsh.ruff",
+        "ms-python.vscode-pylance"
       ]
     }
   },
-  // コンテナが立ち上がったら自動で uv venv の作成と基本パッケージの同期を行う
-  "postCreateCommand": "uv sync",
+  // コンテナ起動時に、マウントされたフォルダの絶対パスを動的に注入
+  "remoteEnv": {
+    "PYTHONPATH": "${containerWorkspaceFolder}/src"
+  },
+  // 開発コンテナ内ではすべてのツール（dev, web, data）を使えるようにフル同期
+  "postCreateCommand": "uv sync --all-groups",
   "remoteUser": "vscode"
 }
