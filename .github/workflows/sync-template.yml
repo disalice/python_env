@@ -2,7 +2,7 @@ name: Sync Template
 
 on:
   schedule:
-    - cron: '0 0 1 * *' # 毎月1日に実行する
+    - cron: '0 0 * * *' # 毎日0時に自動実行
   workflow_dispatch: # 手動実行ボタンも有効化
 
 jobs:

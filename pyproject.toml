@@ -35,10 +35,9 @@ fixable = ["ALL"]
 
 # --- タスクランナー (taskipy) の設定 ---
 [tool.taskipy.tasks]
-# uv run task <タスク名> で実行可能
-lint = "uv run ruff check . --fix"
-format = "uv run ruff format ."
-test = "uv run pytest"
+lint = "ruff check . --fix"
+format = "ruff format ."
+test = "pytest"
 # 用途に合わせた環境同期コマンド
 sync-web = "uv sync --group web"
 sync-data = "uv sync --group data"
